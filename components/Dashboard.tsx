@@ -24,9 +24,17 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ onLogout, user }) => {
   const [activeTab, setActiveTab] = useState<SectionId>(SectionId.INTRO);
 
+  const handleNavClick = (id: SectionId) => {
+    setActiveTab(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const renderNav = (id: SectionId, icon: React.ReactNode, label: string) => (
     <button
-      onClick={() => setActiveTab(id)}
+      onClick={() => handleNavClick(id)}
       className={`flex items-center space-x-3 w-full p-3 rounded-lg transition-all duration-300 ${
         activeTab === id 
           ? 'bg-neon-blue/10 text-neon-blue border-r-2 border-neon-blue' 
